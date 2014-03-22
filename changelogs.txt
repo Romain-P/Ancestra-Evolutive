@@ -1,0 +1,48 @@
+# Changelogs, sur les base d'AR 48
+
+Version 0.1
+
+- Suppression d'objets et variables inutiles
+- Ménage dans Ancestra.java: séparations en class diférrentes:
+  > Main.java, Server.java, Log.java
+- Champs input en console ajoutés (Console.java)
+- Revue de la sauvegarde (sous un CachedThreadPool)
+- Revue du chargement de l'émulateur + config.conf: refonte totale
+- Transformation des statics du World en class:
+  > Données stockées dans un objet (World)data
+- Création d'un système de création de commande optique (voir package tool.commands)
+- Ajout de paramètres pour les commandes (voir package tool.commands : Parameter)
+- Ajout de restrictions pour les commandes + some features !
+- Commandes configurables temporairement en config (à venir sous forme de scripts)
+  > Voir Server.initializeCommands() pour avoir un exemple de commande
+- Ajout d'un antiflooder de packets/threads sur le game/realm et parser.
+- Revue complète de la database:
+  > Supression du SQLManager.java
+  > Mise en place d'une jdcbDAO pour la relation mysql
+  > Chaque objet DAO créé (pour chaque objet à charger en database)
+- Lazy Load terminé
+  > L'émulateur se chargera désormais en 400 MS (0.4s)
+  > Vitesse constante, quelque soit votre nombre de données en database
+  
+Version 0.2
+
+- Triage de classes effectué
+- Création d'une class objet Waiter
+  > Remplace les méthodes Thread.sleep()
+- Remplacement de toutes les méthodes sleep()
+  > Seulement où le thread mis en pause était celui du joueur
+  > Remplacement par un Waiter (voir package tool.time.waiter)
+- Correction de doubles instances Personnage / Compte
+- Installation de Mina sur le serveur de Jeu et de Connexion
+  > 1 Thread pour la totalité des clients
+  > Géré par un cachedThreadPool (threads rajoutés si besoin)
+- Ajout de nouvelles libs
+- Ajout d'un cachedThreadPool pour l'IA
+- Déconnexion du compte si un joueur était déjà connecté dessus
+- Le compte se reload à chaque connexion
+- Correction d'un problème de concurrence niveau DAO
+  > Rajout d'un seul et même ReentrantLock pour chaque objet Dao
+- Correction de l'update du lastIp du compte
+- Correction d'un bug de blocage en combat (timer bugué)
+- Refonte des erreurs mySQL (s'affichent désormais en détails dans la console)
+- Création d'une database propre et complète à l'émulateur
