@@ -46,3 +46,43 @@ Version 0.2
 - Correction d'un bug de blocage en combat (timer bugué)
 - Refonte des erreurs mySQL (s'affichent désormais en détails dans la console)
 - Création d'une database propre et complète à l'émulateur
+
+Version 0.3
+
+- Revue de l'IA: suppression méthodes statics
+  >IA plus rapide
+- Revue du passage de tour
+- Correction de combat: un monstre tué ne gère plus d'IA
+- Supression de retardements inutiles: IA plus rapide
+- Si le mob s'auto tue, il passe son tour correctement (plus de combat bloqué)
+- Le combat se lance désormais au premier clic sur le groupe
+- Téléportation cimetière ou dernièr point de sauvegarde à chaque mort ou abandon (plus de bugs)
+- Correction de la génération de nouveaux items (guids dupliqués & conflits de sauvegarde)
+- Flood du passage de tour désormais impossible (bug réglé)
+- Correction et actualisation de l'affichage des ailes lors de l'activation/désactivation
+- Correction d'une erreur Mina lors de la déconnexion (get & use d'une session nulle)
+- Revue de la méthode addXp. On envoit 1 seul fois le nouveau level (et non par étapes, pour éviter le flood)
+- La vie se regen au maximum lorsqu'on gagne 1 ou plusieurs niveaux
+- Revue des fins de combat avec end_fight_actions (personnage bloqués corrigés).
+- Fins de combats sans boutons restants (bloquer vision, groupe etc..)
+- Disparition des objets interactifs au lancement du combat
+- On peut désormais marcher sans être bloqué par les objets interactifs (de même en combat)
+- Il est désormais impossible de passer à travers les objets interactifs utilisables (zaaps)
+- Les combats se terminent directement quand on tue le dernier monstre (on ne doit plus effectuer d'autres actions pour debug)
+- Correction de la commande admin who.
+
+Version 0.4
+
+- Correction d'une erreur dans le path (qui générait une erreur et saturait l'executor de l'IA)
+- Correction de nullpointers à la déconnexion (GameClient)
+- Correction d'un index invalide dans les combats (lors du passage de tour)
+- Correction d'une requête éronnée (GuildMemberData).
+- Portée négative corrigée (exemple "Oeil de taupe -6po) -> portée négative, on ne pouvait plus lancer de sorts)
+- Les objets interactifs utilisables ne s'ouvrent que quand le personnage est à porté (Exemple: panel zaap)
+- Correction des doubles aggressions simultanées (problème de concurrence)
+- Correction des aggressions (plus de bugs de fin de combats)
+- Ajout du protecteur des neutres (chevalier) en aggression. Son level dépend du level de l'attaquant (50,80,110,140,170)
+- IA: les mobs ne voient plus le sram invisible, ils attaquent la dernière cell où le personnage invisible a lancé son dernier sort.
+- Revue de l'idle time (innactivité). Géré directement depuis Mina (sessionIdle).
+- Création d'une interface Client, extends à GameClient & RealmClient -> évite les doublons dans le SocketManager.
+- Correction du record de joueurs connectés.

@@ -12,5 +12,5 @@ I've created some tools too, to try abstract/interface class, and that was a goo
 
 If you want to see my last commits: https://bitbucket.org/John-r/ancestra-evolutive/src
 
-(The "last" folder contains Ancestra Remake (before Ancestra Evolutive))
+(The "before" folder contains Ancestra Remake (before Ancestra Evolutive))
 Thanks for your watching.
