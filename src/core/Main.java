@@ -12,18 +12,18 @@ public class Main {
 	static {
 		//reboot
 		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				closeServers();
-			}
-		});
+            public void run() {
+                closeServers();
+            }
+        });
 	}
 	
 	public static void main(String[] args) {
-		//création de la console
+		//cr�ation de la console
 		Console console = new Console();
 		Console.instance = console;
 		
-		//démarrage de l'émualteur
+		//d�marrage de l'�mualteur
 		console.writeln(EmulatorInfos.SOFT_NAME.toString());
 		console.writeln("\n ~ Initialisation des variables : config.conf");
 		Server.config.initialize();
@@ -53,7 +53,7 @@ public class Main {
 		Server.config.setRealmServer(realmServer);
 		
 		
-		//serveur lancé
+		//serveur lanc�
 		console.writeln(" > Lancement du serveur termine : "+ time +" ms");
 		console.writeln(" > HELP pour la liste de commandes");
 		

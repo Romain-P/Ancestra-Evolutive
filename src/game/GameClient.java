@@ -421,13 +421,13 @@ public class GameClient implements Client {
 			case 'C'://Creation
 				guild_create(packet);
 			break;
-			case 'f'://Téléportation enclo de guilde
+			case 'f'://Tï¿½lï¿½portation enclo de guilde
 				guild_enclo(packet.substring(2));
 			break;
 			case 'F'://Retirer percepteur
 				guild_remove_perco(packet.substring(2));
 			break;
-			case 'h'://Téléportation maison de guilde
+			case 'h'://Tï¿½lï¿½portation maison de guilde
 				guild_house(packet.substring(2));
 			break;
 			case 'H'://Poser un percepteur
@@ -448,7 +448,7 @@ public class GameClient implements Client {
 			case 'T'://attaque sur percepteur
 				guild_perco_join_fight(packet.substring(2));
 			break;
-			case 'V'://Ferme le panneau de création de guilde
+			case 'V'://Ferme le panneau de crï¿½ation de guilde
 				guild_CancelCreate();
 			break;
 		}
@@ -537,12 +537,12 @@ public class GameClient implements Client {
 			SocketManager.GAME_SEND_Im_PACKET(_perso, "182");
 			return;
 		}
-		if(Percepteur.GetPercoGuildID(_perso.get_curCarte().get_id()) > 0)//La carte possède un perco
+		if(Percepteur.GetPercoGuildID(_perso.get_curCarte().get_id()) > 0)//La carte possï¿½de un perco
 		{
 			SocketManager.GAME_SEND_Im_PACKET(_perso, "1168;1");
 			return;
 		}
-		if(_perso.get_curCarte().get_placesStr().length() < 5)//La map ne possède pas de "places"
+		if(_perso.get_curCarte().get_placesStr().length() < 5)//La map ne possï¿½de pas de "places"
 		{
 			SocketManager.GAME_SEND_Im_PACKET(_perso, "113");
 			return;
@@ -633,7 +633,7 @@ public class GameClient implements Client {
 	
 	private void guild_promote(String packet)
 	{
-		if(_perso.get_guild() == null)return;	//Si le personnage envoyeur n'a même pas de guilde
+		if(_perso.get_guild() == null)return;	//Si le personnage envoyeur n'a mï¿½me pas de guilde
 		
 		String[] infos = packet.split("\\|");
 		
@@ -642,19 +642,19 @@ public class GameClient implements Client {
 		byte xpGive = Byte.parseByte(infos[2]);
 		int right = Integer.parseInt(infos[3]);
 		
-		Personnage p = World.data.getPersonnage(guid);	//Cherche le personnage a qui l'on change les droits dans la mémoire
+		Personnage p = World.data.getPersonnage(guid);	//Cherche le personnage a qui l'on change les droits dans la mï¿½moire
 		GuildMember toChange;
 		GuildMember changer = _perso.getGuildMember();
 		
-		//Récupération du personnage à changer, et verification de quelques conditions de base
-		if(p == null)	//Arrive lorsque le personnage n'est pas chargé dans la mémoire
+		//Rï¿½cupï¿½ration du personnage ï¿½ changer, et verification de quelques conditions de base
+		if(p == null)	//Arrive lorsque le personnage n'est pas chargï¿½ dans la mï¿½moire
 		{
-			int guildId = World.database.getGuildMemberData().playerExistInGuild(guid);	//Récupère l'id de la guilde du personnage qui n'est pas dans la mémoire
+			int guildId = World.database.getGuildMemberData().playerExistInGuild(guid);	//Rï¿½cupï¿½re l'id de la guilde du personnage qui n'est pas dans la mï¿½moire
 			
-			if(guildId < 0)return;	//Si le personnage à qui les droits doivent être modifié n'existe pas ou n'a pas de guilde
+			if(guildId < 0)return;	//Si le personnage ï¿½ qui les droits doivent ï¿½tre modifiï¿½ n'existe pas ou n'a pas de guilde
 			
 			
-			if(guildId != _perso.get_guild().get_id())					//Si ils ne sont pas dans la même guilde
+			if(guildId != _perso.get_guild().get_id())					//Si ils ne sont pas dans la mï¿½me guilde
 			{
 				SocketManager.GAME_SEND_gK_PACKET(_perso, "Ed");
 				return;
@@ -663,7 +663,7 @@ public class GameClient implements Client {
 		}
 		else
 		{
-			if(p.get_guild() == null)return;	//Si la personne à qui changer les droits n'a pas de guilde
+			if(p.get_guild() == null)return;	//Si la personne ï¿½ qui changer les droits n'a pas de guilde
 			if(_perso.get_guild().get_id() != p.get_guild().get_id())	//Si ils ne sont pas de la meme guilde
 			{
 				SocketManager.GAME_SEND_gK_PACKET(_perso, "Ea");
@@ -673,11 +673,11 @@ public class GameClient implements Client {
 			toChange = p.getGuildMember();
 		}
 		
-		//Vérifie ce que le personnage changeur à le droit de faire
+		//Vï¿½rifie ce que le personnage changeur ï¿½ le droit de faire
 		
 		if(changer.getRank() == 1)	//Si c'est le meneur
 		{
-			if(changer.getGuid() == toChange.getGuid())	//Si il se modifie lui même, reset tout sauf l'XP
+			if(changer.getGuid() == toChange.getGuid())	//Si il se modifie lui mï¿½me, reset tout sauf l'XP
 			{
 				rank = -1;
 				right = -1;
@@ -688,7 +688,7 @@ public class GameClient implements Client {
 				{
 					changer.setAllRights(2, (byte) -1, 29694);	//Met le meneur "Bras droit" avec tout les droits
 					
-					//Défini les droits à mettre au nouveau meneur
+					//Dï¿½fini les droits ï¿½ mettre au nouveau meneur
 					rank = 1;
 					xpGive = -1;
 					right = 1;
@@ -752,11 +752,11 @@ public class GameClient implements Client {
 			toRemGuild = P.get_guild();
 			if(toRemGuild == null)//La guilde du personnage n'est pas charger ?
 			{
-					toRemGuild = World.data.getGuild(_perso.get_guild().get_id());//On prend la guilde du perso qui l'éjecte
+					toRemGuild = World.data.getGuild(_perso.get_guild().get_id());//On prend la guilde du perso qui l'ï¿½jecte
 			}
 			toRemMember = toRemGuild.getMember(P.get_GUID());
 			if(toRemMember == null) return;//Si le membre n'est pas dans la guilde.
-			if(toRemMember.getGuild().get_id() != _perso.get_guild().get_id()) return;//Si guilde différente
+			if(toRemMember.getGuild().get_id() != _perso.get_guild().get_id()) return;//Si guilde diffï¿½rente
 		}
 		//si pas la meme guilde
 		if(toRemGuild.get_id() != _perso.get_guild().get_id())
@@ -764,13 +764,13 @@ public class GameClient implements Client {
 			SocketManager.GAME_SEND_gK_PACKET(_perso, "Ea");
 			return;
 		}
-		//S'il n'a pas le droit de kick, et que ce n'est pas lui même la cible
+		//S'il n'a pas le droit de kick, et que ce n'est pas lui mï¿½me la cible
 		if(!_perso.getGuildMember().canDo(Constants.G_BAN) && _perso.getGuildMember().getGuid() != toRemMember.getGuid())
 		{
 			SocketManager.GAME_SEND_gK_PACKET(_perso, "Ed");
 			return;
 		}
-		//Si différent : Kick
+		//Si diffï¿½rent : Kick
 		if(_perso.getGuildMember().getGuid() != toRemMember.getGuid())
 		{
 			if(toRemMember.getRank() == 1) //S'il veut kicker le meneur
@@ -846,7 +846,7 @@ public class GameClient implements Client {
 			if(packet.substring(1).equalsIgnoreCase(_perso.getInvitation()+""))
 			{
 				Personnage p = World.data.getPersonnage(_perso.getInvitation());
-				if(p == null)return;//Pas censé arriver
+				if(p == null)return;//Pas censï¿½ arriver
 				SocketManager.GAME_SEND_gJ_PACKET(p,"Ec");
 			}
 		break;
@@ -854,7 +854,7 @@ public class GameClient implements Client {
 			if(packet.substring(1).equalsIgnoreCase(_perso.getInvitation()+""))
 			{
 				Personnage p = World.data.getPersonnage(_perso.getInvitation());
-				if(p == null)return;//Pas censé arriver
+				if(p == null)return;//Pas censï¿½ arriver
 				Guild G = p.get_guild();
 				GuildMember GM = G.addNewMember(_perso);
 				World.database.getGuildMemberData().update(GM);
@@ -924,7 +924,7 @@ public class GameClient implements Client {
 			//Validation du nom de la guilde
 			String tempName = name.toLowerCase();
 			boolean isValid = true;
-			//Vérifie d'abord si il contient des termes définit
+			//Vï¿½rifie d'abord si il contient des termes dï¿½finit
 			if(tempName.length() > 20
 					|| tempName.contains("mj")
 					|| tempName.contains("modo")
@@ -932,7 +932,7 @@ public class GameClient implements Client {
 			{
 				isValid = false;
 			}
-			//Si le nom passe le test, on vérifie que les caractère entré sont correct.
+			//Si le nom passe le test, on vï¿½rifie que les caractï¿½re entrï¿½ sont correct.
 			if(isValid)
 			{
 				int tiretCount = 0;
@@ -971,7 +971,7 @@ public class GameClient implements Client {
 				SocketManager.GAME_SEND_gC_PACKET(_perso, "Eae");
 				return;
 			}
-			if(_perso.get_curCarte().get_id() == 2196)//Temple de création de guilde
+			if(_perso.get_curCarte().get_id() == 2196)//Temple de crï¿½ation de guilde
 			{
 				if(!_perso.hasItemTemplate(1575,1))//Guildalogemme
 				{
@@ -1457,7 +1457,7 @@ public class GameClient implements Client {
 		if(_perso == null)return;
 		Group g = _perso.getGroup();
 		if(g == null)return;
-		if(packet.length() == 2)//Si aucun guid est spécifié, alors c'est que le joueur quitte
+		if(packet.length() == 2)//Si aucun guid est spï¿½cifiï¿½, alors c'est que le joueur quitte
 		{
 			 g.leave(_perso);
 			 SocketManager.GAME_SEND_PV_PACKET(this,"");
@@ -1555,7 +1555,7 @@ public class GameClient implements Client {
 			case 'D'://Depose l'objet au sol
 				Object_drop(packet);
 			break;
-			case 'M'://Bouger un objet (Equiper/déséquiper)
+			case 'M'://Bouger un objet (Equiper/dï¿½sï¿½quiper)
 				Object_move(packet);
 			break;
 			case 'U'://Utiliser un objet (potions)
@@ -1692,15 +1692,15 @@ public class GameClient implements Client {
 				SocketManager.GAME_SEND_OAEL_PACKET(this);
 				return;
 			}
-			//On ne peut équiper 2 items de panoplies identiques, ou 2 Dofus identiques
+			//On ne peut ï¿½quiper 2 items de panoplies identiques, ou 2 Dofus identiques
 			if(pos != Constants.ITEM_POS_NO_EQUIPED && (obj.getTemplate().getPanopID() != -1 || obj.getTemplate().getType() == Constants.ITEM_TYPE_DOFUS )&& _perso.hasEquiped(obj.getTemplate().getID()))
 				return;
 			
 			Objet exObj = _perso.getObjetByPos(pos);//Objet a l'ancienne position
-			if(exObj != null)//S'il y avait déja un objet sur cette place on déséquipe
+			if(exObj != null)//S'il y avait dï¿½ja un objet sur cette place on dï¿½sï¿½quipe
 			{
 				Objet obj2;
-				if((obj2 = _perso.getSimilarItem(exObj)) != null)//On le possède deja
+				if((obj2 = _perso.getSimilarItem(exObj)) != null)//On le possï¿½de deja
 				{
 					obj2.setQuantity(obj2.getQuantity()+exObj.getQuantity());
 					SocketManager.GAME_SEND_OBJECT_QUANTITY_PACKET(_perso, obj2);
@@ -1708,7 +1708,7 @@ public class GameClient implements Client {
 					_perso.removeItem(exObj.getGuid());
 					SocketManager.GAME_SEND_REMOVE_ITEM_PACKET(_perso, exObj.getGuid());
 				}
-				else//On ne le possède pas
+				else//On ne le possï¿½de pas
 				{
 					exObj.setPosition(Constants.ITEM_POS_NO_EQUIPED);
 					SocketManager.GAME_SEND_OBJET_MOVE_PACKET(_perso,exObj);
@@ -1777,7 +1777,7 @@ public class GameClient implements Client {
 		
 			//Si familier
 			if(pos == Constants.ITEM_POS_FAMILIER && _perso.isOnMount())_perso.toogleOnMount();
-			//Verif pour les outils de métier
+			//Verif pour les outils de mï¿½tier
 			if(pos == Constants.ITEM_POS_NO_EQUIPED && _perso.getObjetByPos(Constants.ITEM_POS_ARME) == null)
 				SocketManager.GAME_SEND_OT_PACKET(this, -1);
 			
@@ -1849,7 +1849,7 @@ public class GameClient implements Client {
 				Dialog_start(packet);
 			break;
 			
-			case 'R'://Réponse du joueur
+			case 'R'://Rï¿½ponse du joueur
 				Dialog_response(packet);
 			break;
 			
@@ -1911,25 +1911,25 @@ public class GameClient implements Client {
 	{	
 		switch(packet.charAt(1))
 		{
-			case 'A'://Accepter demande d'échange
+			case 'A'://Accepter demande d'ï¿½change
 				Exchange_accept();
 			break;
 			case 'B'://Achat
 				Exchange_onBuyItem(packet);
 			break;
 			
-			case 'H'://Demande prix moyen + catégorie
+			case 'H'://Demande prix moyen + catï¿½gorie
 				Exchange_HDV(packet);
 			break;
 			
 			case 'K'://Ok
 				Exchange_isOK();
 			break;
-			case 'L'://jobAction : Refaire le craft précedent
+			case 'L'://jobAction : Refaire le craft prï¿½cedent
 				Exchange_doAgain();
 			break;
 			
-			case 'M'://Move (Ajouter//retirer un objet a l'échange)
+			case 'M'://Move (Ajouter//retirer un objet a l'ï¿½change)
 				Exchange_onMoveItem(packet);
 			break;
 			
@@ -1968,7 +1968,7 @@ public class GameClient implements Client {
 				Exchange_onSellItem(packet);
 			break;
 			
-			case 'V'://Fin de l'échange
+			case 'V'://Fin de l'ï¿½change
 				Exchange_finish_buy();
 			break;
 		}
@@ -1992,7 +1992,7 @@ public class GameClient implements Client {
 				{
 					SocketManager.GAME_SEND_EHm_PACKET(_perso,"-",ligneID+"");//Enleve la ligne
 					if(curHdv.getLigne(ligneID) != null && !curHdv.getLigne(ligneID).isEmpty())
-						SocketManager.GAME_SEND_EHm_PACKET(_perso, "+", curHdv.getLigne(ligneID).parseToEHm());//Réajoute la ligne si elle n'est pas vide
+						SocketManager.GAME_SEND_EHm_PACKET(_perso, "+", curHdv.getLigne(ligneID).parseToEHm());//Rï¿½ajoute la ligne si elle n'est pas vide
 					
 					/*if(curHdv.getLigne(ligneID) != null)
 					{
@@ -2003,7 +2003,7 @@ public class GameClient implements Client {
 					
 					_perso.refreshStats();
 					SocketManager.GAME_SEND_Ow_PACKET(_perso);
-					SocketManager.GAME_SEND_Im_PACKET(_perso,"068");//Envoie le message "Lot acheté"
+					SocketManager.GAME_SEND_Im_PACKET(_perso,"068");//Envoie le message "Lot achetï¿½"
 				}
 				else
 				{
@@ -2025,7 +2025,7 @@ public class GameClient implements Client {
 				templateID = Integer.parseInt(packet.substring(3));
 				SocketManager.GAME_SEND_EHP_PACKET(_perso,templateID);
 			break;			
-			case 'T'://Demande des template de la catégorie
+			case 'T'://Demande des template de la catï¿½gorie
 				int categ = Integer.parseInt(packet.substring(3));
 				String allTemplate = World.data.getHdv(Math.abs(_perso.get_isTradingWith())).parseTemplate(categ);
 				SocketManager.GAME_SEND_EHL_PACKET(_perso,categ,allTemplate);
@@ -2057,10 +2057,10 @@ public class GameClient implements Client {
 						return;
 					}
 					Objet obj = World.data.getObjet(guid);
-					//on prend la DD demandée
+					//on prend la DD demandï¿½e
 					int DDid = obj.getStats().getEffect(995);
 					Dragodinde DD = World.data.getDragoByID(DDid);
-					//FIXME mettre return au if pour ne pas créer des nouvelles dindes
+					//FIXME mettre return au if pour ne pas crï¿½er des nouvelles dindes
 					if(DD == null)
 					{
 						int color = Constants.getMountColorByParchoTemplate(obj.getTemplate().getID());
@@ -2070,7 +2070,7 @@ public class GameClient implements Client {
 					//On enleve l'objet du Monde et du Perso
 					_perso.removeItem(guid);
 					World.data.removeItem(guid);
-					//on ajoute la dinde a l'étable
+					//on ajoute la dinde a l'ï¿½table
 					MP.addData(DD.get_id(), _perso.get_GUID());
 					World.database.getMountparkData().update(MP);
 					//On envoie les packet
@@ -2084,26 +2084,26 @@ public class GameClient implements Client {
 					if(MP.getData().get(DD1.get_id()) != _perso.get_GUID() && 
 						World.data.getPersonnage(MP.getData().get(DD1.get_id())).get_guild() != _perso.get_guild())
 					{
-						//Pas la même guilde, pas le même perso
+						//Pas la mï¿½me guilde, pas le mï¿½me perso
 						return;
 					}
 					if(MP.getData().get(DD1.get_id()) != _perso.get_GUID() && 
 							World.data.getPersonnage(MP.getData().get(DD1.get_id())).get_guild() == _perso.get_guild() &&
 							!_perso.getGuildMember().canDo(Constants.G_OTHDINDE))
 					{
-						//Même guilde, pas le droit
+						//Mï¿½me guilde, pas le droit
 						SocketManager.GAME_SEND_Im_PACKET(_perso, "1101");
 						return;
 					}
-					//on retire la dinde de l'étable
+					//on retire la dinde de l'ï¿½table
 					MP.removeData(DD1.get_id());
 					World.database.getMountparkData().update(MP);
-					//On créer le parcho
+					//On crï¿½er le parcho
 					ObjTemplate T = Constants.getParchoTemplateByMountColor(DD1.get_color());
 					Objet obj1 = T.createNewItem(1, false);
 					//On efface les stats
 					obj1.clearStats();
-					//on ajoute la possibilité de voir la dinde
+					//on ajoute la possibilitï¿½ de voir la dinde
 					obj1.getStats().addOneStat(995, DD1.get_id());
 					obj1.addTxtStat(996, _perso.get_name());
 					obj1.addTxtStat(997, DD1.get_nom());
@@ -2124,14 +2124,14 @@ public class GameClient implements Client {
 					if(MP.getData().get(DD3.get_id()) != _perso.get_GUID() && 
 							World.data.getPersonnage(MP.getData().get(DD3.get_id())).get_guild() != _perso.get_guild())
 					{
-						//Pas la même guilde, pas le même perso
+						//Pas la mï¿½me guilde, pas le mï¿½me perso
 						return;
 					}
 					if(MP.getData().get(DD3.get_id()) != _perso.get_GUID() && 
 							World.data.getPersonnage(MP.getData().get(DD3.get_id())).get_guild() == _perso.get_guild() &&
 							!_perso.getGuildMember().canDo(Constants.G_OTHDINDE))
 					{
-						//Même guilde, pas le droit
+						//Mï¿½me guilde, pas le droit
 						SocketManager.GAME_SEND_Im_PACKET(_perso, "1101");
 						return;
 					}
@@ -2145,13 +2145,13 @@ public class GameClient implements Client {
 					SocketManager.GAME_SEND_Ee_PACKET(_perso,'-',DD3.get_id()+"");
 					SocketManager.GAME_SEND_Rx_PACKET(_perso);
 				break;
-				case 'p'://Equipé => Stocker
-					//Si c'est la dinde équipé
+				case 'p'://Equipï¿½ => Stocker
+					//Si c'est la dinde ï¿½quipï¿½
 					if(_perso.getMount()!=null?_perso.getMount().get_id() == guid:false)
 					{
 						//Si le perso est sur la monture on le fait descendre
 						if(_perso.isOnMount())_perso.toogleOnMount();
-						//Si ca n'a pas réussie, on s'arrete là (Items dans le sac ?)
+						//Si ca n'a pas rï¿½ussie, on s'arrete lï¿½ (Items dans le sac ?)
 						if(_perso.isOnMount())return;
 						
 						Dragodinde DD2 = _perso.getMount();
@@ -2211,7 +2211,7 @@ public class GameClient implements Client {
 						Objet obj = World.data.getObjet(guid);
 						if(obj == null)return;
 						
-						if(qua > obj.getQuantity())
+						if(qua > obj.getQuantity() || qua <= 0)
 							qua = obj.getQuantity();
 						
 						_perso.addinStore(obj.getGuid(), price, qua);
@@ -2229,8 +2229,8 @@ public class GameClient implements Client {
 						
 						Objet obj = World.data.getObjet(guid);
 						if(obj == null)return;
-						if(qua > obj.getQuantity())return;
-						if(qua < obj.getQuantity()) qua = obj.getQuantity();
+						if(qua > obj.getQuantity())
+                            qua = obj.getQuantity();
 						
 						_perso.removeFromStore(obj.getGuid(), qua);
 					}catch(NumberFormatException e){};
@@ -2278,11 +2278,11 @@ public class GameClient implements Client {
 					
 					Objet obj = World.data.getObjet(guid);
 					if(obj == null)return;
-
+                    else if(obj.getQuantity() < qua)
+                        qua = obj.getQuantity();
 					if(perco.HaveObjet(guid))
-					{
 						perco.removeFromPercepteur(_perso, guid, qua);
-					}
+
 					perco.LogObjetDrop(guid, obj);
 				}
 			break;
@@ -2316,7 +2316,7 @@ public class GameClient implements Client {
 					int taxe = (int)(price * (curHdv.getTaxe()/100));
 					
 					
-					if(!_perso.hasItemGuid(itmID))//Vérifie si le personnage a bien l'item spécifié et l'argent pour payer la taxe
+					if(!_perso.hasItemGuid(itmID))//Vï¿½rifie si le personnage a bien l'item spï¿½cifiï¿½ et l'argent pour payer la taxe
 						return;
 					if(_perso.get_compte().countHdvItems(curHdv.getHdvID()) >= curHdv.getMaxItemCompte())
 					{
@@ -2333,16 +2333,16 @@ public class GameClient implements Client {
 					
 					SocketManager.GAME_SEND_STATS_PACKET(_perso);//Met a jour les kamas du client
 					
-					Objet obj = World.data.getObjet(itmID);//Récupère l'item
-					if(amount > obj.getQuantity())//S'il veut mettre plus de cette objet en vente que ce qu'il possède
+					Objet obj = World.data.getObjet(itmID);//Rï¿½cupï¿½re l'item
+					if(amount > obj.getQuantity())//S'il veut mettre plus de cette objet en vente que ce qu'il possï¿½de
 						return;
 					
 					int rAmount = (int)(Math.pow(10,amount)/10);
 					int newQua = (obj.getQuantity()-rAmount);
 					
-					if(newQua <= 0)//Si c'est plusieurs objets ensemble enleve seulement la quantité de mise en vente
+					if(newQua <= 0)//Si c'est plusieurs objets ensemble enleve seulement la quantitï¿½ de mise en vente
 					{
-						_perso.removeItem(itmID);//Enlève l'item de l'inventaire du personnage
+						_perso.removeItem(itmID);//Enlï¿½ve l'item de l'inventaire du personnage
 						SocketManager.GAME_SEND_REMOVE_ITEM_PACKET(_perso,itmID);//Envoie un packet au client pour retirer l'item de son inventaire
 					}
 					else
@@ -2396,6 +2396,8 @@ public class GameClient implements Client {
 						if(qua <= 0)return;
 						Objet obj = World.data.getObjet(guid);
 						if(obj == null)return;
+                        else if(obj.getQuantity() < qua)
+                            qua = obj.getQuantity();
 						_perso.getCurJobAction().modifIngredient(_perso,guid,-qua);
 					}catch(NumberFormatException e){};
 				}
@@ -2428,6 +2430,7 @@ public class GameClient implements Client {
 					if(kamas > 0)//Si On ajoute des kamas a la banque
 					{
 						if(_perso.get_kamas() < kamas)kamas = _perso.get_kamas();
+
 						_perso.setBankKamas(_perso.getBankKamas()+kamas);//On ajoute les kamas a la banque
 						_perso.set_kamas(_perso.get_kamas()-kamas);//On retire les kamas du personnage
 						SocketManager.GAME_SEND_STATS_PACKET(_perso);
@@ -2436,6 +2439,8 @@ public class GameClient implements Client {
 					{
 						kamas = -kamas;//On repasse en positif
 						if(_perso.getBankKamas() < kamas)kamas = _perso.getBankKamas();
+                        else if(kamas <= 0) // si - -, Ã§a donne +
+                            return;
 						_perso.setBankKamas(_perso.getBankKamas()-kamas);//On retire les kamas de la banque
 						_perso.set_kamas(_perso.get_kamas()+kamas);//On ajoute les kamas du personnage
 						SocketManager.GAME_SEND_STATS_PACKET(_perso);
@@ -2452,7 +2457,9 @@ public class GameClient implements Client {
 						qua = Integer.parseInt(packet.substring(4).split("\\|")[1]);
 					}catch(Exception e){};
 					if(guid == 0 || qua <= 0)return;
-					
+					if(World.data.getObjet(guid) == null
+                            || World.data.getObjet(guid).getQuantity() < qua)
+                        return;
 					switch(packet.charAt(3))
 					{
 						case '+'://Ajouter a la banque
@@ -2493,6 +2500,8 @@ public class GameClient implements Client {
                         }else // On retire des kamas au coffre
                         {
                         	kamas = -kamas;//On repasse en positif
+                            if(kamas <= 0) // - - = +
+                                return;
                         	if(t.get_kamas() < kamas)kamas = t.get_kamas();
                         	t.set_kamas(t.get_kamas()-kamas);//On retire les kamas de la banque
                          	_perso.set_kamas(_perso.get_kamas()+kamas);//On ajoute les kamas du personnage
@@ -2517,7 +2526,9 @@ public class GameClient implements Client {
                 			qua = Integer.parseInt(packet.substring(4).split("\\|")[1]);
                 		}catch(Exception e){};
                 		if(guid == 0 || qua <= 0)return;
-                               
+                        if(World.data.getObjet(guid) == null
+                                || World.data.getObjet(guid).getQuantity() < qua)
+                            return;
                 		switch(packet.charAt(3))
                 		{
                 			case '+'://Ajouter a la banque
@@ -2582,6 +2593,8 @@ public class GameClient implements Client {
 					long numb = Integer.parseInt(packet.substring(3));
 					if(_perso.get_kamas() < numb)
 						numb = _perso.get_kamas();
+                    else if(numb <= 0)
+                        return;
 					_perso.get_curExchange().setKamas(_perso.get_GUID(), numb);
 				}catch(NumberFormatException e){};
 			break;
@@ -2613,7 +2626,9 @@ public class GameClient implements Client {
 			{
 				SocketManager.GAME_SEND_SELL_ERROR_PACKET(this);
 				return;
-			}
+			}else if(World.data.getObjet(guid) == null
+                || World.data.getObjet(guid).getQuantity() < qua)
+            return;
 			_perso.sellItem(guid, qua);
 		}catch(Exception e)
 		{
@@ -2694,7 +2709,7 @@ public class GameClient implements Client {
 			if(qua <= 0) return;
 			
 			ObjTemplate template = World.data.getObjTemplate(tempID);
-			if(template == null)//Si l'objet demandé n'existe pas(ne devrait pas arrivé)
+			if(template == null)//Si l'objet demandï¿½ n'existe pas(ne devrait pas arrivï¿½)
 			{
 				Log.addToLog(_perso.get_name()+" tente d'acheter l'itemTemplate "+tempID+" qui est inexistant");
 				SocketManager.GAME_SEND_BUY_ERROR_PACKET(this);
@@ -2706,6 +2721,7 @@ public class GameClient implements Client {
 				SocketManager.GAME_SEND_BUY_ERROR_PACKET(this);
 				return;
 			}
+
 			int prix = template.getPrix() * qua;
 			if(_perso.get_kamas()<prix)//Si le joueur n'a pas assez de kamas
 			{
@@ -2740,7 +2756,7 @@ public class GameClient implements Client {
 		   _perso.getInTrunk() == null)
 			return;
 		
-		//Si échange avec un personnage
+		//Si ï¿½change avec un personnage
 		if(_perso.get_curExchange() != null)
 		{
 			_perso.get_curExchange().cancel();
@@ -2748,7 +2764,7 @@ public class GameClient implements Client {
 			_perso.set_away(false);
 			return;
 		}
-		//Si métier
+		//Si mï¿½tier
 		if(_perso.getCurJobAction() != null)
 		{
 			_perso.getCurJobAction().resetCraft();
@@ -2806,7 +2822,7 @@ public class GameClient implements Client {
 	{
 		if(packet.substring(2,4).equals("11"))//Ouverture HDV achat
 		{
-			if(_perso.get_isTradingWith() < 0)//Si déjà ouvert
+			if(_perso.get_isTradingWith() < 0)//Si dï¿½jï¿½ ouvert
 				SocketManager.GAME_SEND_EV_PACKET(this);
 			
 			if(_perso.getDeshonor() >= 5) 
@@ -2827,12 +2843,12 @@ public class GameClient implements Client {
 						";-1;"+
 						toOpen.getSellTime();
 			SocketManager.GAME_SEND_ECK_PACKET(_perso,11,info);
-			_perso.set_isTradingWith(0 - _perso.get_curCarte().get_id());	//Récupère l'ID de la map et rend cette valeur négative
+			_perso.set_isTradingWith(0 - _perso.get_curCarte().get_id());	//Rï¿½cupï¿½re l'ID de la map et rend cette valeur nï¿½gative
 			return;
 		}
 		else if(packet.substring(2,4).equals("10"))//Ouverture HDV vente
 		{
-			if(_perso.get_isTradingWith() < 0)//Si déjà ouvert
+			if(_perso.get_isTradingWith() < 0)//Si dï¿½jï¿½ ouvert
 				SocketManager.GAME_SEND_EV_PACKET(this);
 			
 			if(_perso.getDeshonor() >= 5) 
@@ -2853,7 +2869,7 @@ public class GameClient implements Client {
 						";-1;"+
 						toOpen.getSellTime();
 			SocketManager.GAME_SEND_ECK_PACKET(_perso,10,info);
-			_perso.set_isTradingWith(0 - _perso.get_curCarte().get_id());	//Récupère l'ID de la map et rend cette valeur négative
+			_perso.set_isTradingWith(0 - _perso.get_curCarte().get_id());	//Rï¿½cupï¿½re l'ID de la map et rend cette valeur nï¿½gative
 			
 			SocketManager.GAME_SEND_HDVITEM_SELLING(_perso);
 			return;
@@ -2957,9 +2973,9 @@ public class GameClient implements Client {
 		}catch(Exception e){};
 		if(emote == -1)return;
 		if(_perso == null)return;
-		if(_perso.get_fight() != null)return;//Pas d'émote en combat
+		if(_perso.get_fight() != null)return;//Pas d'ï¿½mote en combat
 		
-		switch(emote)//effets spéciaux des émotes
+		switch(emote)//effets spï¿½ciaux des ï¿½motes
 		{
 			case 19://s'allonger 
 			case 1:// s'asseoir
@@ -3062,7 +3078,7 @@ public class GameClient implements Client {
 		{
 			switch(packet.charAt(1))
 			{
-				case 'D'://Détails d'un combat (liste des combats)
+				case 'D'://Dï¿½tails d'un combat (liste des combats)
 					int key = -1;
 					try
 					{
@@ -3223,7 +3239,7 @@ public class GameClient implements Client {
 				long l;
 				if((l = System.currentTimeMillis() - _timeLastTradeMsg) < Server.config.getFloodTime())
 				{
-					l = (Server.config.getFloodTime()  - l)/1000;//On calcul la différence en secondes
+					l = (Server.config.getFloodTime()  - l)/1000;//On calcul la diffï¿½rence en secondes
 					SocketManager.GAME_SEND_Im_PACKET(_perso, "0115;"+((int)Math.ceil(l)+1));
 					return;
 				}
@@ -3241,7 +3257,7 @@ public class GameClient implements Client {
 				long j;
 				if((j = System.currentTimeMillis() - _timeLastRecrutmentMsg) < Server.config.getFloodTime())
 				{
-					j = (Server.config.getFloodTime()  - j)/1000;//On calcul la différence en secondes
+					j = (Server.config.getFloodTime()  - j)/1000;//On calcul la diffï¿½rence en secondes
 					SocketManager.GAME_SEND_Im_PACKET(_perso, "0115;"+((int)Math.ceil(j)+1));
 					return;
 				}
@@ -3268,7 +3284,7 @@ public class GameClient implements Client {
 				long k;
 				if((k = System.currentTimeMillis() - _timeLastAlignMsg) < Server.config.getFloodTime())
 				{
-					k = (Server.config.getFloodTime()  - k)/1000;//On calcul la différence en secondes
+					k = (Server.config.getFloodTime()  - k)/1000;//On calcul la diffï¿½rence en secondes
 					SocketManager.GAME_SEND_Im_PACKET(_perso, "0115;"+((int)Math.ceil(k)+1));
 					return;
 				}
@@ -3386,7 +3402,7 @@ public class GameClient implements Client {
 		if(targetID > 0)//Expulsion d'un joueurs autre que soi-meme
 		{
 			Personnage target = World.data.getPersonnage(targetID);
-			//On ne quitte pas un joueur qui : est null, ne combat pas, n'est pas de ça team.
+			//On ne quitte pas un joueur qui : est null, ne combat pas, n'est pas de ï¿½a team.
 			if(target == null || target.get_fight() == null || target.get_fight().getTeamID(target.get_GUID()) != _perso.get_fight().getTeamID(_perso.get_GUID()))return;
 			_perso.get_fight().leftFight(_perso, target);
 			
@@ -3461,11 +3477,11 @@ public class GameClient implements Client {
 						_perso.get_curCell().removePlayer(_perso.get_GUID());
 						SocketManager.GAME_SEND_BN(this);
 						String path = GA._args;
-						//On prend la case ciblée
+						//On prend la case ciblï¿½e
 						Case nextCell = _perso.get_curCarte().getCase(CryptManager.cellCode_To_ID(path.substring(path.length()-2)));
 						Case targetCell = _perso.get_curCarte().getCase(CryptManager.cellCode_To_ID(GA._packet.substring(GA._packet.length()-2)));
 						
-						//On définie la case et on ajoute le personnage sur la case
+						//On dï¿½finie la case et on ajoute le personnage sur la case
 						_perso.set_curCell(nextCell);
 						_perso.set_orientation(CryptManager.getIntByHashedValue(path.charAt(path.length()-3)));
 						_perso.get_curCell().addPerso(_perso);
@@ -3473,7 +3489,7 @@ public class GameClient implements Client {
 						
 						if(targetCell.getObject() != null)
 						{
-							//Si c'est une "borne" comme Emotes, ou Création guilde
+							//Si c'est une "borne" comme Emotes, ou Crï¿½ation guilde
 							if(targetCell.getObject().getID() == 1324)
 							{
 								Constants.applyPlotIOAction(_perso,_perso.get_curCarte().get_id(),targetCell.getID());
@@ -3584,7 +3600,7 @@ public class GameClient implements Client {
 				game_action(GA);
 			break;
 			
-			case 507://Panneau intérieur de la maison
+			case 507://Panneau intï¿½rieur de la maison
 				house_action(packet);
 			break;
 			
@@ -3634,7 +3650,7 @@ public class GameClient implements Client {
 		if(h == null) return;
 		switch(actionID)
 		{
-			case 81://Vérouiller maison
+			case 81://Vï¿½rouiller maison
 				h.Lock(_perso);
 			break;
 			case 97://Acheter maison
@@ -3848,7 +3864,7 @@ public class GameClient implements Client {
 			AtomicReference<String> pathRef = new AtomicReference<String>(path);
 			int result = Pathfinding.isValidPath(_perso.get_curCarte(),_perso.get_curCell().getID(),pathRef, null);
 			
-			//Si déplacement inutile
+			//Si dï¿½placement inutile
 			if(result == 0)
 			{
 				SocketManager.GAME_SEND_GA_PACKET(this, "", "0", "", "");
@@ -3906,7 +3922,7 @@ public class GameClient implements Client {
 				//Validation du nom du personnage
 				boolean isValid = true;
 				String name = infos[0].toLowerCase();
-				//Vérifie d'abord si il contient des termes définit
+				//Vï¿½rifie d'abord si il contient des termes dï¿½finit
 				if(name.length() > 20
 						|| name.contains("mj")
 						|| name.contains("modo")
@@ -3914,7 +3930,7 @@ public class GameClient implements Client {
 				{
 					isValid = false;
 				}
-				//Si le nom passe le test, on vérifie que les caractère entré sont correct.
+				//Si le nom passe le test, on vï¿½rifie que les caractï¿½re entrï¿½ sont correct.
 				if(isValid)
 				{
 					int tiretCount = 0;
@@ -3952,25 +3968,21 @@ public class GameClient implements Client {
 					}
 				}
 				//Si le nom est invalide
-				if(!isValid)
-				{
+				 if(!isValid || Integer.parseInt(infos[1]) <= 0 || Integer.parseInt(infos[1]) > 12)
 					SocketManager.GAME_SEND_NAME_ALREADY_EXIST(this);
-					return;
-				}
-				if(_compte.GET_PERSO_NUMBER() >= Server.config.getMaxPlayersPerAccount())
-				{
+				 else if(_compte.GET_PERSO_NUMBER() >= Server.config.getMaxPlayersPerAccount())
 					SocketManager.GAME_SEND_CREATE_PERSO_FULL(this);
-					return;
-				} 
-				if(_compte.createPerso(infos[0], Integer.parseInt(infos[2]), Integer.parseInt(infos[1]), Integer.parseInt(infos[3]),Integer.parseInt(infos[4]), Integer.parseInt(infos[5])))
-				{
+				 else if(_compte.createPerso(infos[0],
+                        Integer.parseInt(infos[2]),
+                        Integer.parseInt(infos[1]),
+                        Integer.parseInt(infos[3]),
+                        Integer.parseInt(infos[4]),
+                        Integer.parseInt(infos[5]))) {
 					SocketManager.GAME_SEND_CREATE_OK(this);
 					SocketManager.GAME_SEND_PERSO_LIST(this, _compte.get_persos());
-				}else
-				{
+				} else {
 					SocketManager.GAME_SEND_CREATE_FAILED(this);
 				}
-				
 			break;
 			
 			case 'B':
@@ -4033,7 +4045,7 @@ public class GameClient implements Client {
 				int guid = Integer.parseInt(packet.substring(2));
 				_compte = Server.config.getGameServer().getWaitingCompte(guid);
 				
-				if(_compte != null) {
+				if(_compte != null && _compte.get_curPerso() == null) {
 					String ip = Constants.getIp(session.getRemoteAddress().toString());
 					_compte.setRealmThread(null);
 					_compte.setGameClient(this);
@@ -4043,8 +4055,7 @@ public class GameClient implements Client {
 					
 					Server.config.getGameServer().delWaitingCompte(_compte);
 					SocketManager.GAME_SEND_ATTRIBUTE_SUCCESS(this);
-				}else
-				{
+				} else {
 					SocketManager.GAME_SEND_ATTRIBUTE_FAILED(this);
 				}
 			break;
