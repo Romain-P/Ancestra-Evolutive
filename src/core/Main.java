@@ -19,11 +19,11 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		//création de la console
+		//crÃ©ation de la console
 		Console console = new Console();
 		Console.instance = console;
 		
-		//démarrage de l'émualteur
+		//dÃ©marrage de l'Ã©mualteur
 		console.writeln(EmulatorInfos.SOFT_NAME.toString());
 		console.writeln("\n ~ Initialisation des variables : config.conf");
 		Server.config.initialize();
@@ -53,7 +53,7 @@ public class Main {
 		Server.config.setRealmServer(realmServer);
 		
 		
-		//serveur lancé
+		//serveur lancÃ©
 		console.writeln(" > Lancement du serveur termine : "+ time +" ms");
 		console.writeln(" > HELP pour la liste de commandes");
 		

@@ -41,20 +41,15 @@ public class Server {
 	//database
 	private String host, user, pass;
 	private String databaseName;
-	private int dbCommit;
 	
 	//network
-	private boolean ipLoopBack;
 	private boolean useIp;
 	private String ip;
 	private int realmPort, gamePort;
-	private boolean socketUseCompactData = false;
-	private int socketTimeCompactData = 200;
 	
 	//on player connection
 	private String motd, motdColor;
 	private PrintStream ps;
-	private boolean policy;
 	
 	//player
 	private int maxPlayersPerAccount;
@@ -109,7 +104,6 @@ public class Server {
 			this.user = configFile.getString("database.user");
 			this.pass = configFile.getString("database.password");
 			this.databaseName = configFile.getString("database.databaseName");
-			this.dbCommit = configFile.getInt("database.commit");
 			
 			//network
 			this.ip = configFile.getString("network.ip");
@@ -175,7 +169,7 @@ public class Server {
 	}
 	
 	public void initializeCommands() {
-		//totalité des commandes
+		//totalitï¿½ des commandes
 		Map<String, Command<Personnage>> playerCommands = new HashMap<>();
 		Map<String, Command<Console>> consoleCommands = new HashMap<>();
 		
@@ -183,11 +177,11 @@ public class Server {
 		 * Commandes des joueurs
 		 */
 		
-		//teleportation zone de départ
+		//teleportation zone de dï¿½part
 		if(configFile.getBoolean("commands.players.teleport.savePos.active")) {
 			String name = configFile.getString("commands.players.teleport.savePos.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
@@ -210,8 +204,8 @@ public class Server {
 				}
 			});
 			
-			//ajout message de succès
-			command.addSuccessMessage("Vous avez bien été téléporté à votre dernière position sauvegardée");
+			//ajout message de succï¿½s
+			command.addSuccessMessage("Vous avez bien ï¿½tï¿½ tï¿½lï¿½portï¿½ ï¿½ votre derniï¿½re position sauvegardï¿½e");
 			//ajout aux commmandes
 			playerCommands.put(name, command);
 		}
@@ -220,7 +214,7 @@ public class Server {
 		if(configFile.getBoolean("commands.players.save.playerSave.active")) {
 			String name = configFile.getString("commands.players.save.playerSave.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
@@ -236,8 +230,8 @@ public class Server {
 			command.attachRestricter(restricter).activeErrorMessage(); //indique le temps restant avant relance
 			
 			
-			//ajout message de succès
-			command.addSuccessMessage("Votre personnage a été sauvegardé avec succès.");
+			//ajout message de succï¿½s
+			command.addSuccessMessage("Votre personnage a ï¿½tï¿½ sauvegardï¿½ avec succï¿½s.");
 			//ajout aux commmandes
 			playerCommands.put(name, command);
 		}
@@ -246,7 +240,7 @@ public class Server {
 		if(configFile.getBoolean("commands.players.informations.serverInfos.active")) {
 			String name = configFile.getString("commands.players.informations.serverInfos.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
@@ -264,7 +258,7 @@ public class Server {
 		if(configFile.getBoolean("commands.players.list.commandList.active")) {
 			String name = configFile.getString("commands.players.list.commandList.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
@@ -288,7 +282,7 @@ public class Server {
 		if(configFile.getBoolean("commands.console.server.uptime.active")) {
 			String name = configFile.getString("commands.console.server.uptime.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Console> command = new Command<Console>(name) {
 				
 				@Override
@@ -305,7 +299,7 @@ public class Server {
 		if(configFile.getBoolean("commands.console.server.reboot.active")) {
 			String name = configFile.getString("commands.console.server.reboot.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Console> command = new Command<Console>(name) {
 				
 				@Override
@@ -326,7 +320,7 @@ public class Server {
 		if(configFile.getBoolean("commands.console.server.save.active")) {
 			String name = configFile.getString("commands.console.server.save.name");
 			
-			//création de la commande
+			//crï¿½ation de la commande
 			Command<Console> command = new Command<Console>(name) {
 				
 				@Override
@@ -359,7 +353,7 @@ public class Server {
 		consoleCommands.put("HELP", command);
 		
 		
-		//ajout des commandes dans les données du serveur
+		//ajout des commandes dans les donnï¿½es du serveur
 		World.data.getPlayerCommands().putAll(playerCommands);
 		World.data.getConsoleCommands().putAll(consoleCommands);
 	}
@@ -401,10 +395,6 @@ public class Server {
 
 	public PrintStream getPs() {
 		return ps;
-	}
-
-	public boolean isPolicy() {
-		return policy;
 	}
 
 	public int getRealmPort() {
@@ -461,10 +451,6 @@ public class Server {
 
 	public int getPlayerLimitOnServer() {
 		return playerLimitOnServer;
-	}
-
-	public boolean isIpLoopBack() {
-		return ipLoopBack;
 	}
 
 	public int getRateXpPvp() {
@@ -539,24 +525,12 @@ public class Server {
 		return arenaTime;
 	}
 
-	public int getDbCommit() {
-		return dbCommit;
-	}
-
 	public int getMaxIdleTime() {
 		return maxIdleTime;
 	}
 
 	public ArrayList<Integer> getNoInHdv() {
 		return noInHdv;
-	}
-
-	public boolean isSocketUseCompactData() {
-		return socketUseCompactData;
-	}
-
-	public int getSocketTimeCompactData() {
-		return socketTimeCompactData;
 	}
 
 	public void setRunning(boolean isRunning) {
