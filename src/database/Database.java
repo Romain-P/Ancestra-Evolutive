@@ -108,9 +108,9 @@ public class Database {
 		try {
 		  this.connection = DriverManager.getConnection("jdbc:mysql://" +
 		  Server.config.getHost() + "/" +
-				  Server.config.getDatabaseName(), 
-				  Server.config.getUser(), 
-				  Server.config.getPass());
+				  Server.config.getDatabaseName(),
+                    Server.config.getUser(),
+                    Server.config.getPass());
 		  this.connection.setAutoCommit(true);
 		  this.initializeData();
 		} catch (SQLException e) {
@@ -124,7 +124,7 @@ public class Database {
 		try {
 			this.connection.close();
 		} catch (SQLException e) {
-			Console.instance.writeln(" <> Fermeture de la connection échoué: reboot forcé");
+			Console.instance.writeln(" <> Fermeture de la connection ï¿½chouï¿½: reboot forcï¿½");
 		}
 	}
 	

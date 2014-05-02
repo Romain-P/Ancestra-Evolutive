@@ -185,7 +185,7 @@ public class Server {
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
-				public void action(Personnage player) {
+				public void action(Personnage player, String[] args) {
 					player.warpToSavePos();
 				}
 				
@@ -218,7 +218,7 @@ public class Server {
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
-				public void action(Personnage player) {
+				public void action(Personnage player, String[] args) {
 					player.save();
 				}
 				
@@ -244,7 +244,7 @@ public class Server {
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
-				public void action(Personnage player) {
+				public void action(Personnage player, String[] args) {
 					player.sendText(Constants.serverInfos());
 				}
 				
@@ -253,7 +253,7 @@ public class Server {
 			//ajout aux commmandes
 			playerCommands.put(name, command);
 		}
-		
+
 		//liste des commandes
 		if(configFile.getBoolean("commands.players.list.commandList.active")) {
 			String name = configFile.getString("commands.players.list.commandList.name");
@@ -262,7 +262,7 @@ public class Server {
 			Command<Personnage> command = new Command<Personnage>(name) {
 				
 				@Override
-				public void action(Personnage player) {
+				public void action(Personnage player, String[] args) {
 					StringBuilder commands = new StringBuilder("<b>Liste des commandes disponibles: </b>");
 					for(Command<Personnage> command: World.data.getPlayerCommands().values())
 						commands.append(command.getName()).append(", ");
@@ -286,7 +286,7 @@ public class Server {
 			Command<Console> command = new Command<Console>(name) {
 				
 				@Override
-				public void action(Console console) {
+				public void action(Console console, String[] args) {
 					Console.instance.writeln(Constants.serverInfos());
 				}
 				
@@ -303,7 +303,7 @@ public class Server {
 			Command<Console> command = new Command<Console>(name) {
 				
 				@Override
-				public void action(Console console) {
+				public void action(Console console, String[] args) {
 					World.data.saveData(-1);
 					try {
 						Thread.sleep(3000);
@@ -324,7 +324,7 @@ public class Server {
 			Command<Console> command = new Command<Console>(name) {
 				
 				@Override
-				public void action(Console console) {
+				public void action(Console console, String[] args) {
 					World.data.saveData(-1);
 					Console.instance.write(" <> Sauvegarde terminee");
 				}
@@ -339,7 +339,7 @@ public class Server {
 		Command<Console> command = new Command<Console>("HELP") {
 			
 			@Override
-			public void action(Console console) {
+			public void action(Console console, String[] args) {
 				StringBuilder commands = new StringBuilder("Liste des commandes disponibles: \n");
 				for(Command<Console> command: World.data.getConsoleCommands().values())
 					commands.append(command.getName()).append(", ");

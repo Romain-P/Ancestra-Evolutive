@@ -12,19 +12,19 @@ import core.Console;
 
 public abstract class Command<T>{
 	private String name;
-	private Map<String, Parameter<T>> parameters = new HashMap<>();
+    private Map<String, Parameter<T>> parameters = new HashMap<>();
 	private CommandGroupAccess<T> commandGroupAccess = new CommandGroupAccess<>();
 	private StringBuilder successMessages = new StringBuilder();
 	private TimeRestricter restricter;
 	
-	public abstract void action(T t);
+	public abstract void action(T t, String[] args);
 	
 	public Command(String name) {
 		this.name = name.toLowerCase();
 	}
 	
 	public Parameter<T> addParameter(Parameter<T> parameter) {
-		this.getParameters().put(parameter.getName(), parameter);
+		this.parameters.put(parameter.getName(), parameter);
 		return parameter;
 	}
 	
@@ -36,12 +36,12 @@ public abstract class Command<T>{
 		this.successMessages.append(message).append("\n");
 	}
 	
-	public void execute(T t) {
+	public void execute(T t, String[] args) {
 		if(this.commandGroupAccess.authorizes(t)) {
 			if(t instanceof Personnage && 
 					this.restricter != null && !this.restricter.authorizes((Personnage)t))
 				return;
-			this.action(t);
+			this.action(t, args);
 			Console.instance.print(this.successMessages.toString(), t);
 		}
 	}
@@ -55,7 +55,7 @@ public abstract class Command<T>{
 		return name;
 	}
 
-	public Map<String, Parameter<T>> getParameters() {
-		return parameters;
-	}
+    public Map<String, Parameter<T>> getParameters() {
+        return parameters;
+    }
 }
