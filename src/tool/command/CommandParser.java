@@ -49,17 +49,19 @@ public class CommandParser {
 				Parameter<Personnage> lastParameter = null;
 				
 				while(!params.isEmpty()) {
-					Parameter<Personnage> temporary = command.getParameters().get(params.pop());
+                    String param = params.pop();
+					Parameter<Personnage> temporary = command.getParameters().get(param);
 					if(temporary == null) {
-						if(lastParameter != null)
+						if(lastParameter != null) {
+                            params.addFirst(param);
 							lastParameter.action((Personnage)t, (String[])params.toArray());
-						else
+                        } else
 							command.execute((Personnage)t, (String[])params.toArray());
 					} else
 						lastParameter = temporary;
 				}
 			} else 
-				command.execute((Personnage)t, new String[] {});
+				command.execute((Personnage)t, parameters);
 		} 
 		else if (t instanceof Console) {
 			Command<Console> command = World.data.getConsoleCommands().get(name);
@@ -87,7 +89,7 @@ public class CommandParser {
 						lastParameter = temporary;
 				}
 			} else 
-				command.execute((Console)t, new String[] {});
+				command.execute((Console)t, parameters);
 		}
 	}
 
